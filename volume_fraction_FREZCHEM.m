@@ -37,7 +37,7 @@ end
 FrOut = read_FrOut(fn);
 p = FrOut.pressure; % bar
 if ~all(p==p(1))
-    warning('Pressure appears to change between temperature steps in FREZCHEM output file, adopting value at initial temperature step.') 
+    warning('Pressure appears to change between temperature steps in FREZCHEM output file, adopting value at initial temperature step.')
 end
 p=p(1)*100000; % Pa;
 
@@ -93,8 +93,8 @@ else
     %% Freezing Point
     Tm = Tmelt(p); % K
     Tm = Tm - 273.15; % C
-%     Tf = interp1([0; Sb],[Tm; T_FrOut],S,'linear');
-%     Sb_T = interp1([Tm; T_FrOut],[0; Sb],T,'linear');
+    %     Tf = interp1([0; Sb],[Tm; T_FrOut],S,'linear');
+    %     Sb_T = interp1([Tm; T_FrOut],[0; Sb],T,'linear');
     
     %% Salt Volume
     Vb_V = rho_i*S./(F1-rho_i.*F2*S);
@@ -125,15 +125,16 @@ else
                 ' defined. If mineral precipitating at the eutectic',...
                 ' is known, Vs_V can be calculated manually.'])
         end
-    else 
+    else
         rho_ss = FrOut.eutectic.rho_ss*1000;
         rho_i = ice_density(T(T<T_FrOut(end))+273.15,p);
-        rho_i = repmat(rho_i,1,length(S));
-        
-        k_star = FrOut.eutectic.sm/ms_b0;
-        Vs_V(Tmat<T_FrOut(end)) = S*k_star./...
-            (S*k_star+(1000-S*k_star).*(rho_ss./rho_i)); 
-        
+        if ~isempty(rho_i)
+            rho_i = repmat(rho_i,1,length(S));
+            
+            k_star = FrOut.eutectic.sm/ms_b0;
+            Vs_V(Tmat<T_FrOut(end)) = S*k_star./...
+                (S*k_star+(1000-S*k_star).*(rho_ss./rho_i));
+        end
     end
     
     %% Extension of F1 and F2 to T = Tm
@@ -155,5 +156,5 @@ else
     %% Ice Volume
     Vi_V = 1-(Vb_V+Vs_V);
     
-end    
+end
 end

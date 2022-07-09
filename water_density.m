@@ -1,28 +1,28 @@
-function rho = water_density(T,p)
-% Density of water as a function of temperature and pressure. 
-% Equations from the Gibbs energy equation of state.
+function rho = water_density(T,P)
+% Density of water as a function of temperature and pressure from the Gibbs
+% energy equation of state.
 %
 % Syntax:
-% rho = water_density(T,p)
+% rho = water_density(T,P)
 %
 % Inputs:
-% Temperature   (K)
-% Pressure      (Pa)
+% T, Temperature    (K)
+% P, Pressure       (Pa)
 %
 % Outputs:
-% Density       (kg/m^3)
+% rho, Density      (kg/m^3)
 %
 % Source:
 % IAPWS SR7-09(2009)
 % http://www.iapws.org/relguide/OceanLiquid.pdf
 %
 % Range of Validity:
-% 100 Pa <= p <= 100 MPa
-% (270.5 – p × 7.43 × 10–8 Pa–1) K <= T <= 313.15 K
+% 100 Pa <= P <= 100 MPa
+% (270.5 – P × 7.43 × 10–8 Pa–1) K <= T <= 313.15 K
 %
 % Author:
 % Natalie Wolfenbarger
-% nswolfen@gmail.com
+% nwolfenb@utexas.edu
 %
 %% Convert to Kelvin
 if min(T)<=0
@@ -82,7 +82,7 @@ gs = 1; % J/kg
 
 %% Dimensionless variables
 tau = (T-T0)/Ts;
-pii = (p-p0)/ps;
+pii = (P-p0)/ps;
 
 %% gp
 gsum = 0;
