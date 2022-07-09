@@ -1,0 +1,45 @@
+DATABASE C:\Program Files (x86)\USGS\Phreeqc Interactive 3.7.3-15968\database\ColdChem.dat
+TITLE SO4-dominated - ColdChem.dat
+SOLUTION
+	units	mol/kgw
+		Na	0.02308
+		Mg	0.03077	
+		Cl	0.00769
+		S	0.03846	
+EQUILIBRIUM_PHASES
+	Halite		0.0	0.0
+	Hydrohalite		0.0	0.0
+	Sylvite		0.0	0.0
+	Bischofite		0.0	0.0
+	MgCl2:8H2O		0.0	0.0
+	MgCl2:12H2O		0.0	0.0
+	Antarcticite	0.0	0.0
+	Tachyhydrite	0.0	0.0
+	Carnallite		0.0	0.0
+	Thenardite		0.0	0.0
+	Na2SO4:7H2O		0.0	0.0
+	Mirabilite		0.0	0.0
+	Arcanite		0.0	0.0
+	Kieserite		0.0	0.0
+	Starkeyite		0.0	0.0
+	Pentahydrite	0.0	0.0
+	Hexahydrite		0.0	0.0
+	Epsomite		0.0	0.0
+	Meridianiite	0.0	0.0
+	Anhydrite		0.0	0.0
+	Bassanite		0.0	0.0
+	Gypsum		0.0	0.0
+	Glaserite		0.0	0.0
+	Bloedite		0.0	0.0
+	Glauberite		0.0	0.0
+	Labile_Salt		0.0	0.0
+	Leonite		0.0	0.0
+	Picromerite		0.0	0.0
+	Langbeinite		0.0	0.0
+	Syngenite		0.0	0.0
+	Kainite		0.0	0.0
+	Polyhalite		0.0	0.0
+	Ice(s) 		0.0	0.0
+REACTION_TEMPERATURE
+        0 -40.0 in 401 steps
+END
