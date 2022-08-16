@@ -1,6 +1,7 @@
 function rho = water_density(T,P)
 % Density of water as a function of temperature and pressure from the Gibbs
-% energy equation of state.
+% energy equation of state. Densities where water is not thermodynamically
+% stable will putput as NaN.
 %
 % Syntax:
 % rho = water_density(T,P)
@@ -24,6 +25,22 @@ function rho = water_density(T,P)
 % Natalie Wolfenbarger
 % nwolfenb@utexas.edu
 %
+%% Column Vectors
+flip = false;
+if ~iscolumn(T) && ~ismatrix(T)
+    T = T';
+    flip = true;
+end
+
+if ~iscolumn(P) && ~ismatrix(P)
+    P = P';
+    flip = true;
+end
+
+if length(P)~= length(T) && (~isscalar(P) && ~isscalar(T))
+    error('Pressure/temperature input must either be a vector the same length as the temperature/pressure or a scalar value that applies to all temperatures/pressures.')
+end
+
 %% Convert to Kelvin
 if min(T)<=0
     T = T+273.15;
@@ -80,6 +97,9 @@ p0 = 101325; % K
 ps = 1e8; % K
 gs = 1; % J/kg
 
+Tt = 273.16; % K
+Pt = 611.657; % Pa
+
 %% Dimensionless variables
 tau = (T-T0)/Ts;
 pii = (P-p0)/ps;
@@ -98,4 +118,23 @@ gp = gs./ps*gsum;
 
 %% Density
 rho = 1./gp;
+
+if flip
+    rho = rho';
+end
+
+%% Check phase stability 
+T_ref = NaN(size(P));
+T_ref(P>Pt) = Tmelt(P(P>Pt));
+T_ref(P<Pt) = Tsat(P(P<Pt));
+T_ref(P==Pt) = Tt;
+rho(T(P>Pt)<T_ref(P>Pt)) = NaN;
+rho(T(P<Pt)>T_ref(P<Pt)) = NaN;
+rho(isnan(T_ref)) = NaN;
+
+if any(isnan(rho))
+    warning('Water is not thermodyanmically stable for at least one input temperature and pressure.')
+end
+
+
 end

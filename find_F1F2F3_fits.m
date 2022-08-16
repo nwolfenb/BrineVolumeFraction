@@ -7,6 +7,7 @@
 % Shell" submitted to JGR: Planets.
 
 clear all; close all; clc
+set(groot, 'defaultAxesTickLabelInterpreter','latex'); 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% FREZCHEM v13.3
@@ -191,7 +192,7 @@ fprintf('\n')
 %% NaCl
 fn = '.\FREZCHEM\v15.1\NaCl\NaCl_1ppt';
 [T,F1,F2,~] = F1F2F3_FREZCHEM(fn);
-
+T = round(T,1);
 
 figure
 subplot(2,1,1)
@@ -214,7 +215,7 @@ ax1 = gca;
 ax1.XDir = 'reverse';
 axis tight
 xlabel('Temperature ($^{\circ}$C)')
-ylabel('F1(T)')
+ylabel('$F_1(T)$ (kg/m$^{3}$)')
 title('NaCl')
 
 fprintf('NaCl\n')
@@ -241,7 +242,7 @@ ax2 = gca;
 ax2.XDir = 'reverse';
 axis tight
 xlabel('Temperature ($^{\circ}$C)')
-ylabel('F2(T)')
+ylabel('$F_2(T)$')
 
 fprintf('F2(T)\n')
 fprintf('%1.4eT^3 + %1.4eT^2 + %1.4eT + %1.4e\n',p1)
@@ -250,7 +251,7 @@ fprintf('\n')
 %% MgSO4
 fn = '.\FREZCHEM\v15.1\MgSO4\MgSO4_1ppt';
 [T,F1,F2,~] = F1F2F3_FREZCHEM(fn);
-
+T = round(T,1);
 
 figure
 subplot(2,1,1)
@@ -273,7 +274,7 @@ ax1 = gca;
 ax1.XDir = 'reverse';
 axis tight
 xlabel('Temperature ($^{\circ}$C)')
-ylabel('F1(T)')
+ylabel('$F_1(T)$ (kg/m$^{3}$)')
 title('MgSO$_4$')
 
 fprintf('MgSO4\n')
@@ -300,7 +301,7 @@ ax2 = gca;
 ax2.XDir = 'reverse';
 axis tight
 xlabel('Temperature ($^{\circ}$C)')
-ylabel('F2(T)')
+ylabel('$F_2(T)$')
 
 fprintf('F2(T)\n')
 fprintf('%1.4eT^3 + %1.4eT^2 + %1.4eT + %1.4e\n',p1)
@@ -349,7 +350,7 @@ ax1 = gca;
 ax1.XDir = 'reverse';
 ax1.XTickLabel = [];
 axis tight
-ylabel('F1(T)')
+ylabel('$F_1(T)$ (kg/m$^{3}$)')
 title('Cl-Dominated')
 
 fprintf('Cl-Dominated\n')
@@ -395,7 +396,7 @@ ax2 = gca;
 ax2.XDir = 'reverse';
 axis tight
 ax2.XTickLabel = [];
-ylabel('F2(T)')
+ylabel('$F_2(T)$')
 
 fprintf('F2(T)\n')
 fprintf('T>=-22.4\n')
@@ -440,7 +441,7 @@ ax3 = gca;
 ax3.XDir = 'reverse';
 axis tight
 xlabel('Temperature ($^{\circ}$C)')
-ylabel('F3(T)')
+ylabel('$F_3(T)$')
 
 fprintf('F3(T)\n')
 fprintf('T>=-22.4 & T<=-6.1\n')
@@ -490,8 +491,8 @@ ax1 = gca;
 ax1.XDir = 'reverse';
 ax1.XTickLabel = [];
 axis tight
-ylabel('F1(T)')
-title('SO4-Dominated')
+ylabel('$F_1(T)$ (kg/m$^{3}$)')
+title('SO$_4$-Dominated')
 
 fprintf('SO4-Dominated\n')
 fprintf('F1(T)\n')
@@ -536,7 +537,7 @@ ax2 = gca;
 ax2.XDir = 'reverse';
 axis tight
 ax2.XTickLabel = [];
-ylabel('F2(T)')
+ylabel('$F_2(T)$')
 
 fprintf('F2(T)\n')
 fprintf('T>=-5.6\n')
@@ -580,7 +581,7 @@ ax3 = gca;
 ax3.XDir = 'reverse';
 axis tight
 xlabel('Temperature ($^{\circ}$C)')
-ylabel('F3(T)')
+ylabel('$F_3(T)$')
 
 fprintf('F3(T)\n')
 fprintf('T>=-3.4 & T<=-5.6\n')
