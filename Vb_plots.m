@@ -24,17 +24,6 @@ for m = 1:length(sol)
     Vb_V(Tmat<Teut) = NaN;
     Vs_V(Tmat>Teut & Vs_V==0) = NaN;
     
-    T_crit = zeros(size(S));
-    for n = 1:length(S)
-        Vb_V_n = Vb_V(:,n);
-        ind = find(Vb_V_n>0.05);
-        if S(n) ==  0
-            T_crit(n) = NaN;
-        else
-            T_crit(n) = Tmat(ind(1),n);
-        end
-    end
-    
     ax1 = axes;
     ax1.FontSize = fontsize;
     yyaxis(ax1,'left')
@@ -62,8 +51,7 @@ for m = 1:length(sol)
     axis tight
     hold on
     plot(Sb_liq,T_liq,'k','linewidth',linewidth)
-    plot(Sb_liq,Teut*ones(size(T_liq)),'k--','linewidth',linewidth)
-    plot(S,T_crit,'k:','linewidth',linewidth/2)
+    plot(Sb_liq,Teut*ones(size(T_liq)),'k','linewidth',linewidth/2)
     
     ax2.YDir = 'reverse';
     yyaxis(ax2,'right')
@@ -127,18 +115,7 @@ for m = 1:length(sol)
     
     Vb_V(Tmat<Teut) = NaN;
     Vs_V(Tmat>Teut & Vs_V==0) = NaN;
-    
-    T_crit = zeros(size(S));
-    for n = 1:length(S)
-        Vb_V_n = Vb_V(:,n);
-        ind = find(Vb_V_n>0.05);
-        if S(n) ==  0
-            T_crit(n) = NaN;
-        else
-            T_crit(n) = Tmat(ind(1),n);
-        end
-    end
-    
+
     ax1 = axes;
     ax1.FontSize = fontsize;
     yyaxis(ax1,'left')
@@ -167,8 +144,7 @@ for m = 1:length(sol)
     axis tight
     hold on
     plot(Sb_liq,T_liq,'k','linewidth',linewidth)
-    plot(Sb_liq,Teut*ones(size(T_liq)),'k--','linewidth',linewidth)
-    plot(S,T_crit,'k:','linewidth',linewidth/2)
+    plot(Sb_liq,Teut*ones(size(T_liq)),'k','linewidth',linewidth/2)
     
     ax2.YDir = 'reverse';
     yyaxis(ax2,'right')

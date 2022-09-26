@@ -151,6 +151,7 @@ else
     
     Vb_V(isnan(Vb_V)) = 1;
     Vb_V(Vb_V>1 | Vb_V<0) = 1;
+    Vb_V(Vb_V==1 & Vs_V>0) = 1-Vs_V(Vb_V==1 & Vs_V>0);
     Vb_V(Tmat<T_FrOut(end)) = 0;
     
     %% Ice Volume
