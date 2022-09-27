@@ -151,8 +151,13 @@ else
     
     Vb_V(isnan(Vb_V)) = 1;
     Vb_V(Vb_V>1 | Vb_V<0) = 1;
-    Vb_V(Vb_V==1 & Vs_V>0) = 1-Vs_V(Vb_V==1 & Vs_V>0);
     Vb_V(Tmat<T_FrOut(end)) = 0;
+
+    F3 = Vs_V./Vb_V;
+    
+    ind = find(Vb_V+Vs_V>1);
+    Vs_V(ind) = F3(ind)./(1+F3(ind));
+    Vb_V(ind) = 1 - Vs_V(ind);
     
     %% Ice Volume
     Vi_V = 1-(Vb_V+Vs_V);
