@@ -1,65 +1,63 @@
 # BrineVolumeFraction
-MATLAB code base for modeling the volume fraction of brine, salt, and ice (Ih) as a function of temperature and bulk ice salinity using phase behavior functions derived from the output of freezing simulations using FREZCHEM v13.3 and 15.1. This code base is used to generate the results in the manuscript "Compositional Controls on the Distribution of Brine in Europa's Ice Shell", submitted to JGR: Planets.
+MATLAB code base for modeling the volume fraction of brine, salt, and ice (Ih) as a function of temperature and bulk ice salinity using phase behavior functions derived from the output of freezing simulations using FREZCHEM v13.3 and 15.1. This code base is used to generate the results in the following manuscripts:
+
+(1) Wolfenbarger, N. S., Fox-Powell, M. G., Buffo, J. J., Soderlund, K. M., & Blankenship, D. D. (2022). Compositional controls on the distribution of brine in Europa's ice shell. Journal of Geophysical Research: Planets, 127, e2022JE007305. https://doi.org/10.1029/2022JE007305
+
+(2) Wolfenbarger, N. S., Fox-Powell, M. G., Buffo, J. J., Soderlund, K. M., & Blankenship, D. D. (Submitted). The Habitability of Brine Pockets in Europa's Ice Shell. Geophysical Research Letters, https://doi.org/10.1002/essoar.10512037.1
 
 The code base includes the following functions:  
+FREZCHEM\
+[T,rhob] = brine_density_FREZCHEM(fn)
+[T,F1,F2,F3] = F1F2F3_FREZCHEM(fn)
+[T,Sb] = liquidus_FREZCHEM(fn)  
+FrOut = read_FrOut(fn)  
+FrOut = read_FrOut133(fn)  
+FrOut = read_FrOut151(fn) 
+[Tmat,Smat,Vi_V, Vb_V, Vs_V] = volume_fraction_FREZCHEM(T,S,fn)   
+
+Ice Ih Properties\
 T = Tmelt(P)  
 T = Tsub(P)
 T = Tsat(P)
 P = Pmelt(T)
 P = Psub(T)
 P = Psat(T)
-rho = water_density(T,P)  
 rho = ice_density(T,P)  
-FrOut = read_FrOut(fn)  
-FrOut = read_FrOut133(fn)  
-FrOut = read_FrOut151(fn)  
-[T,Sb] = liquidus_FREZCHEM(fn)  
-[Tmat,Smat,Vi_V, Vb_V, Vs_V] = volume_fraction_FREZCHEM(T,S,fn)  
-[T,F1,F2,F3] = F1F2F3_FREZCHEM(fn)
+
+Water Properties\
+rho = water_density(T,P)  
 
 scripts:
+2022-Wolfenbarger-JGR\
 find_F1F2F3_fits.m
 Vb_plots.m
+
+2022-Wolfenbarger-GRL\
+equilibrium_mushy_layer.m
+habitability_metrics_europa.m
+Vb_europa_zoom.m
 
 MAT-files:
 elemental_properties.mat
 
-FREZCHEM directories:
-v13.3\Seawater
-v15.1\NaCl
-v15.1\MgSO4
-v15.1\Cl_Na_Mg_SO4_seawater
-v15.1\SO4_Mg_Na_Cl
-
-and PHREEQC directories:
-ColdChem
-frezchem
-
+freezing simulations:
+FREZCHEM\v13.3\Seawater
+FREZCHEM\v15.1\NaCl
+FREZCHEM\v15.1\MgSO4
+FREZCHEM\v15.1\Cl_Na_Mg_SO4_seawater 
+FREZCHEM\v15.1\SO4_Mg_Na_Cl
+PHREEQC\ColdChem
+PHREEQC\frezchem
 
 FUNCTIONS
-T = Tmelt(P)  
-Tmelt(P) calculates the melting temperature (T) of ice Ih as a function of pressure (P) using the equations originally published by Wagner et al. (2011), included in the International Association for the Properties of Water and Steam (IAPWS) Revised Release on the Pressure along the Melting and Sublimation Curves of Ordinary Water Substance: IAPWS R14-08(2011).
+[T,rhob] = brine_density_FREZCHEM(fn)
+brine_density_FREZCHEM(fn) extracts the temperature and brine density (where ice is stable) from the output file of a FREZCHEM v13.3 or 15.1 simulation, including a data point at the pure ice pressure melting temperature obtained from Tmelt(P).
 
-T = Tsub(P)
-Tsub(P) calculates the sublimation temperature (T) of ice Ih given pressure (P) using the equations originally published by Wagner et al. (2011), included in the International Association for the Properties of Water and Steam (IAPWS) Revised Release on the Pressure along the Melting and Sublimation Curves of Ordinary Water Substance: IAPWS R14-08(2011).
+[T,F1,F2,F3] = F1F2F3_FREZCHEM(fn)
+F1F2F3_FREZCHEM(fn) derives phase behavior functions from the FREZCHEM output file (fn).
 
-T = Tsat(P)
-Tsat(P) calculates the saturation temperature (T) of water given pressure (P) using the equations included in the International Association for the Properties of Water and Steam (IAPWS) Revised Release on the IAPWS Industrial Formulation 1997 for the Thermodynamic Properties of Water and Steam: IAPWS R7-97(2012).
-
-P = Pmelt(T)  
-Pmelt(T) calculates the melting pressure (P) of ice Ih as a function of temperature (T) using the equations of state originally published by Wagner et al. (2011), included in the International Association for the Properties of Water and Steam (IAPWS) Revised Release on the Pressure along the Melting and Sublimation Curves of Ordinary Water Substance: IAPWS R14-08(2011).
-
-P = Psub(T)
-Psub(T) calculates the sublimation pressure (P) of ice Ih given temperature (T) using the equations of state originally published by Wagner et al. (2011), included in the International Association for the Properties of Water and Steam (IAPWS) Revised Release on the Pressure along the Melting and Sublimation Curves of Ordinary Water Substance: IAPWS R14-08(2011).
-
-P = Psat(T)
-Psat(T) calculates the saturation pressure (P) of water given temperature (T) using the equations included in the International Association for the Properties of Water and Steam (IAPWS) Revised Release on the IAPWS Industrial Formulation 1997 for the Thermodynamic Properties of Water and Steam: IAPWS R7-97(2012).
-
-rho = water_density(T,P)  
-water_density(T,p) calculates the density of water as a function of temperature (T) and pressure (P) using the equations of state, originally published by Feistel et al. (2003, 2008), included in the International Association for the Properties of Water and Steam (IAPWS) Supplementary Release on a Computationally Efficient Thermodynamic Formulation for Liquid Water for Oceanographic Use: IAPWS SR7-09. 
-
-rho = ice_density(T,P)  
-ice_density(T,P) calculates the density of ice Ih using the equations of state, originally published by Wagner et al. (2011), included in the International Association for the Properties of Water and Steam (IAPWS) Revised Release on the Equation of State 2006 for H2O Ice Ih: IAPWS R10-06(2009).
+[T,Sb] = liquidus_FREZCHEM(fn)  
+liquidus_FREZCHEM extracts the temperature and brine salinity (where ice is stable) from the output file of a FREZCHEM v13.3 or 15.1 simulation, including a data point at the pure ice pressure melting temperature obtained from Tmelt(P). 
 
 FrOut = read_FrOut(fn)  
 read_FrOut reads a FREZCHEM output file and calls either read_FrOut133(fn) or read_FrOut151(fn), depending on the version of the output file, to create the structure FrOut. 
@@ -70,36 +68,59 @@ read_FrOut133(fn) creates a structure (FrOut) from a FREZCHEM v13.3 output file 
 FrOut = read_FrOut151(fn)  
 read_FrOut151(fn) creates a structure (FrOut) from a FREZCHEM v15.1 output file (fn) that contains bulk properties, solution properties, and solid properties at each convergent temperature step. It also estimates solid properties at the eutectic temperature (as opposed to the final convergent temperature step).
 
-[T,Sb] = liquidus_FREZCHEM(fn)  
-liquidus_FREZCHEM extracts the temperature and brine salinity (where ice is stable) from the output file of a FREZCHEM v13.3 or 15.1 simulation, including a data point at the pure ice pressure melting temperature obtained from Tmelt(p). 
-
 [Tmat,Smat,Vi_V, Vb_V, Vs_V] = volume_fraction_FREZCHEM(T,S,fn)  
 volume_fraction_FREZCHEM(T,S,fn) calculates the volume fraction of ice (Vi_V), brine (Vb_V), and solid salt (Vs_V) as a function of temperature (T) and bulk ice salinity (S), using the phase behavior functions derived from the FREZCHEM output file (fn).
 
-[T,F1,F2,F3] = F1F2F3_FREZCHEM(fn)
-F1F2F3_FREZCHEM(fn) derives phase behavior functions from the FREZCHEM output file (fn).
+rho = ice_density(T,P)  
+ice_density(T,P) calculates the density of ice Ih using the equations of state, originally published by Wagner et al. (2011), included in the International Association for the Properties of Water and Steam (IAPWS) Revised Release on the Equation of State 2006 for H2O Ice Ih: IAPWS R10-06(2009).
+
+P = Pmelt(T)  
+Pmelt(T) calculates the melting pressure (P) of ice Ih as a function of temperature (T) using the equations of state originally published by Wagner et al. (2011), included in the International Association for the Properties of Water and Steam (IAPWS) Revised Release on the Pressure along the Melting and Sublimation Curves of Ordinary Water Substance: IAPWS R14-08(2011).
+
+P = Psat(T)
+Psat(T) calculates the saturation pressure (P) of water given temperature (T) using the equations included in the International Association for the Properties of Water and Steam (IAPWS) Revised Release on the IAPWS Industrial Formulation 1997 for the Thermodynamic Properties of Water and Steam: IAPWS R7-97(2012).
+
+P = Psub(T)
+Psub(T) calculates the sublimation pressure (P) of ice Ih given temperature (T) using the equations of state originally published by Wagner et al. (2011), included in the International Association for the Properties of Water and Steam (IAPWS) Revised Release on the Pressure along the Melting and Sublimation Curves of Ordinary Water Substance: IAPWS R14-08(2011).
+
+T = Tmelt(P)  
+Tmelt(P) calculates the melting temperature (T) of ice Ih as a function of pressure (P) using the equations originally published by Wagner et al. (2011), included in the International Association for the Properties of Water and Steam (IAPWS) Revised Release on the Pressure along the Melting and Sublimation Curves of Ordinary Water Substance: IAPWS R14-08(2011).
+
+T = Tsat(P)
+Tsat(P) calculates the saturation temperature (T) of water given pressure (P) using the equations included in the International Association for the Properties of Water and Steam (IAPWS) Revised Release on the IAPWS Industrial Formulation 1997 for the Thermodynamic Properties of Water and Steam: IAPWS R7-97(2012).
+
+T = Tsub(P)
+Tsub(P) calculates the sublimation temperature (T) of ice Ih given pressure (P) using the equations originally published by Wagner et al. (2011), included in the International Association for the Properties of Water and Steam (IAPWS) Revised Release on the Pressure along the Melting and Sublimation Curves of Ordinary Water Substance: IAPWS R14-08(2011).
+
+rho = water_density(T,P)  
+water_density(T,p) calculates the density of water as a function of temperature (T) and pressure (P) using the equations of state, originally published by Feistel et al. (2003, 2008), included in the International Association for the Properties of Water and Steam (IAPWS) Supplementary Release on a Computationally Efficient Thermodynamic Formulation for Liquid Water for Oceanographic Use: IAPWS SR7-09. 
 
 SCRIPTS
-find_F1F2F3_fits.m performs curve fitting to the output F1F2F3_FREZCHEM to determine the piecewise polynomial representation of the phase behavior functions used in "Compositional Controls on the Distribution of Brine in Europa's Ice Shell", submitted to JGR: Planets.
+2022-Wolfenbarger-JGR\find_F1F2F3_fits.m performs curve fitting to the output F1F2F3_FREZCHEM to determine the piecewise polynomial representation of the phase behavior functions used in "Compositional Controls on the Distribution of Brine in Europa's Ice Shell", pubslihed in JGR: Planets.
 
-Vb_plots.m generates the plots shown in Figures 7 and 8 in "Compositional Controls on the Distribution of Brine in Europa's Ice Shell", submitted to JGR: Planets.
+2022-Wolfenbarger-JGR\Vb_plots.m generates the plots shown in Figures 7 and 8 in "Compositional Controls on the Distribution of Brine in Europa's Ice Shell", published in JGR: Planets.
+
+2022-Wolfenbarger-GRL\equilibrium_mushy_layer.m generates the plots shown in Figure S2 in "The Habitability of Brine Pockets in Europa's Ice Shell", submitted to GRL.
+
+2022-Wolfenbarger-GRL\habitability_metrics_europa.m generates the plots shown in Figure 1 in "The Habitability of Brine Pockets in Europa's Ice Shell", submitted to GRL.
+
+2022-Wolfenbarger-GRL\Vb_europa_zoom.m generates the plots shown in Figure 2 in "The Habitability of Brine Pockets in Europa's Ice Shell", submitted to GRL.
 
 MAT-FILES
 elemental_properties.mat contains the data describing the properties of elements (e.g., name, symbol, atomic number, atomic weight, etc.) originally found on https://lwn.net/Articles/723824/
 
-FREZCHEM DIRECTORIES
-v13.3\Seawater contains the FREZCHEM v13.3 input and output files used to simulate the freezing of seawater. The Pressure subdirectory contains the input and output files used to simulate the freezing of seawater for a range of initial pressures from 1 bar to 500 bars. The Sp_Govern subdirectory contains the input and output files used to simulate the freezing of seawater for a range of initial salinitues from 1 ppt to 250 ppt.
+FREEZING SIMULATIONS
+FREZCHEM\v13.3\Seawater contains the FREZCHEM v13.3 input and output files used to simulate the freezing of seawater. The Pressure subdirectory contains the input and output files used to simulate the freezing of seawater for a range of initial pressures from 1 bar to 500 bars. The Sp_Govern subdirectory contains the input and output files used to simulate the freezing of seawater for a range of initial salinitues from 1 ppt to 250 ppt.
 
-v15.1\NaCl contains the FREZCHEM v15.1 input and output files used to simulate the freezing of a 1 ppt NaCl solution.
+FREZCHEM\v15.1\NaCl contains the FREZCHEM v15.1 input and output files used to simulate the freezing of a 1 ppt NaCl solution.
 
-v15.1\MgSO4 contains the FREZCHEM v15.1 input and output files used to simulate the freezing of a 1 ppt MgSO4.
+FREZCHEM\v15.1\MgSO4 contains the FREZCHEM v15.1 input and output files used to simulate the freezing of a 1 ppt MgSO4.
 
-v15.1\Cl_Na_Mg_SO4_seawater contains the FREZCHEM v15.1 input and output files used to simulate the freezing of the chloride-dominated analog endmember Europan ocean composition.
+FREZCHEM\v15.1\Cl_Na_Mg_SO4_seawater contains the FREZCHEM v15.1 input and output files used to simulate the freezing of the chloride-dominated analog endmember Europan ocean composition.
 
-v15.1\SO4_Mg_Na_Cl contains the FREZCHEM v15.1 input and output files used to simulate the freezing of the sulfate-dominated analog endmember Europan ocean composition.
+FREZCHEM\v15.1\SO4_Mg_Na_Cl contains the FREZCHEM v15.1 input and output files used to simulate the freezing of the sulfate-dominated analog endmember Europan ocean composition.
 
-PHREEQC DIRECTORIES
-ColdChem contains the PHREEQC input and output files (assuming the ColdChem database) used to simulate the freezing of a 1 ppt NaCl solution, a 1 ppt MgSO4 solution, the chloride-dominated analog endmember Europan ocean composition, and the sulfate-dominated analog endmember Europan ocean composition. 
+PHREEQC\ColdChem contains the PHREEQC input and output files (using the ColdChem database) used to simulate the freezing of a 1 ppt NaCl solution, a 1 ppt MgSO4 solution, the chloride-dominated analog endmember Europan ocean composition, and the sulfate-dominated analog endmember Europan ocean composition. 
 
-frezchem contains the PHREEQC input and output files (assuming the frezchem database) used to simulate the freezing of a 1 ppt NaCl solution, a 1 ppt MgSO4 solution, the chloride-dominated analog endmember Europan ocean composition, and the sulfate-dominated analog endmember Europan ocean composition. 
+PHREEQC\frezchem contains the PHREEQC input and output files (using the frezchem database) used to simulate the freezing of a 1 ppt NaCl solution, a 1 ppt MgSO4 solution, the chloride-dominated analog endmember Europan ocean composition, and the sulfate-dominated analog endmember Europan ocean composition. 
 
