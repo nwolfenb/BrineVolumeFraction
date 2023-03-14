@@ -16,7 +16,7 @@ function [P,Tmat,Smat,Vi_V, Vb_V, Vs_V] = volume_fraction_FREZCHEM(T,S,fn)
 % fn    filename of FREZCHEM output file, string
 %
 % Outputs:
-% P     Pressure (Pa), scalar 
+% P     Pressure (Pa), scalar
 % Tmat  Temperature (C), vector or matrix
 % Smat  Bulk salinity of ice (ppt), vector or matrix
 % Vi_V  Ice volume fraction, vector or matrix
@@ -96,13 +96,23 @@ else
     %% Freezing Point
     Tm = Tmelt(P); % K
     Tm = Tm - 273.15; % C
-    %     Tf = interp1([0; Sb],[Tm; T_FrOut],S,'linear');
-    %     Sb_T = interp1([Tm; T_FrOut],[0; Sb],T,'linear');
     
     %% Salt Volume
+    % You know where Vb_V>1 and Vb_V<0, ice is not forming; however, this
+    % does not mean salt is not forming. Where this occurs, you need to
+    % solve the system:
+    % Vs_V = C.*(rho_b./rho_ss).*Vb_V,
+    % Vs_V + Vb_V = 1 
+    
     Vb_V = rho_i*S./(F1-rho_i.*F2*S);
-    Vs_V = C.*(rho_b./rho_ss).*Vb_V;
-    Vs_V(isnan(Vs_V)) = 0;
+    F3 = C.*(rho_b./rho_ss);
+    F3 = repmat(F3,1,length(S));
+    Vs_V = F3./(1+F3);
+    
+    ind_bad = find(Vb_V+Vs_V>1 | Vb_V<0 | Vb_V>1);
+    ind_good = find(Vb_V+Vs_V<=1 & Vb_V>=0);
+    Vb_V(ind_bad) = 1 - Vs_V(ind_bad);
+    Vs_V(ind_good) = F3(ind_good).*Vb_V(ind_good);
     
     T_FrOut_mod = [Tm; T_FrOut];
     Vs_V_max = max(Vs_V);
@@ -115,6 +125,9 @@ else
     else
         [Smat_FrOut,Tmat_FrOut] = meshgrid(S,T_FrOut_mod);
         Vs_V = interp2(Smat_FrOut,Tmat_FrOut,Vs_V,Smat,Tmat,'linear');
+        if C(1)>0
+            Vs_V(Tmat(:,1)>T_FrOut(1),:) = 0;
+        end
     end
     
     if isnan(FrOut.eutectic.sm)
@@ -151,19 +164,19 @@ else
     
     %% Brine Volume
     Vb_V = rho_i*S./(F1-rho_i.*F2*S);
-    
-    Vb_V(isnan(Vb_V)) = 1;
-    Vb_V(Vb_V>1 | Vb_V<0) = 1;
-    Vb_V(Tmat<T_FrOut(end)) = 0;
 
-    F3 = Vs_V./Vb_V;
-    
-    ind = find(Vb_V+Vs_V>1);
-    Vs_V(ind) = F3(ind)./(1+F3(ind));
+    ind = find(Vb_V+Vs_V>1 | Vb_V<0 | Vb_V>1);
     Vb_V(ind) = 1 - Vs_V(ind);
+    Vb_V(isnan(Vb_V)) = 0;
+    Vs_V(isnan(Vs_V)) = 0;
+    Vb_V(Vb_V==0 & Vs_V==0 & Smat>1) = 1;
     
     %% Ice Volume
     Vi_V = 1-(Vb_V+Vs_V);
+    
+    if any(Vi_V+Vb_V+Vs_V~=1)
+        error('Volume fractions of each phase do not add to 1.')
+    end
     
 end
 end
