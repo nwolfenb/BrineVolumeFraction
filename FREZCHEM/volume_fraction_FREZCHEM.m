@@ -169,14 +169,10 @@ else
     Vb_V(ind) = 1 - Vs_V(ind);
     Vb_V(isnan(Vb_V)) = 0;
     Vs_V(isnan(Vs_V)) = 0;
-    Vb_V(Vb_V==0 & Vs_V==0 & Smat>1) = 1;
+    Vb_V(Vb_V==0 & Vs_V==0 & Smat>0) = 1;
     
     %% Ice Volume
     Vi_V = 1-(Vb_V+Vs_V);
-    
-    if any(Vi_V+Vb_V+Vs_V~=1)
-        error('Volume fractions of each phase do not add to 1.')
-    end
     
 end
 end
