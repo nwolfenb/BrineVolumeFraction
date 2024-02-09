@@ -9,11 +9,11 @@ The code base includes the following functions:
 FREZCHEM\
 [P,T,rhob] = brine_density_FREZCHEM(fn)
 [P,T,F1,F2,F3,k_star,rho_ss] = F1F2F3_FREZCHEM(fn)
-[T,Sb] = liquidus_FREZCHEM(fn)  
+[P,T,Sb] = liquidus_FREZCHEM(fn)  
 FrOut = read_FrOut(fn)  
 FrOut = read_FrOut133(fn)  
 FrOut = read_FrOut151(fn) 
-[Tmat,Smat,Vi_V, Vb_V, Vs_V] = volume_fraction_FREZCHEM(T,S,fn)   
+[P,Tmat,Smat,Vi_V, Vb_V, Vs_V] = volume_fraction_FREZCHEM(T,S,fn)   
 
 Ice Ih Properties\
 T = Tmelt(P)  
@@ -125,4 +125,4 @@ PHREEQC\ColdChem contains the PHREEQC ColdChem database file and input and outpu
 
 PHREEQC\frezchem contains the PHREEQC frezchem database file and input and output files (using the frezchem database) used to simulate the freezing of a 1 ppt NaCl solution, a 1 ppt MgSO4 solution, the chloride-dominated analog endmember Europan ocean composition, and the sulfate-dominated analog endmember Europan ocean composition. 
 
-PHREEQC\frezchem contains the PHREEQC frezchem_ColdChem database file and input and output files (using the frezchem database) used to simulate the freezing of a 1 ppt NaCl solution, a 1 ppt MgSO4 solution, the chloride-dominated analog endmember Europan ocean composition, and the sulfate-dominated analog endmember Europan ocean composition. 
+PHREEQC\frezchem_ColdChem contains the PHREEQC frezchem_ColdChem database file and input and output files (using the frezchem database) used to simulate the freezing of a 1 ppt NaCl solution, a 1 ppt MgSO4 solution, the chloride-dominated analog endmember Europan ocean composition, and the sulfate-dominated analog endmember Europan ocean composition. 
