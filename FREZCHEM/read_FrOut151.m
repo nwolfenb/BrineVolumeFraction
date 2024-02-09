@@ -949,11 +949,9 @@ while ischar(tline)
             else
                 ind = find(FrOut.solid_moles(n,2:end)>0);
                 ind = ind + 1;
-                FrOut.rho_ss(n) = nansum(FrOut.solid_moles(n,ind)'.*...
-                    solid_species_mass(ind))/nansum((FrOut.solid_moles(n,ind)'.*...
-                    solid_species_mass(ind))./rho_solid_species(ind));
-                if isnan(FrOut.rho_ss(n))
-                end
+                FrOut.rho_ss(n) = sum(FrOut.solid_moles(n,ind)'.*...
+                    solid_species_mass(ind),'omitnan')/sum((FrOut.solid_moles(n,ind)'.*...
+                    solid_species_mass(ind))./rho_solid_species(ind),'omitnan');
             end
         end
     end
@@ -1134,11 +1132,11 @@ if exist('solids','var')
     end
     
     
-    FrOut.eutectic.rho_ss = nansum(solid_moles_final.*solid_molar_mass_final)/...
-        nansum((solid_moles_final.*solid_molar_mass_final)./rho_ss_eut);
+    FrOut.eutectic.rho_ss = sum(solid_moles_final.*solid_molar_mass_final,[],'omitnan')/...
+        sum((solid_moles_final.*solid_molar_mass_final)./rho_ss_eut,[],'omitnan');
     if ~isnan(FrOut.rho_ss(end))
         rho1 = FrOut.eutectic.rho_ss;
-        m1 = nansum((solid_moles_final.*solid_molar_mass_final));
+        m1 = sum((solid_moles_final.*solid_molar_mass_final),[],'omitnan');
         
         rho2 = FrOut.rho_ss(end);
         m2 = FrOut.sm(end);

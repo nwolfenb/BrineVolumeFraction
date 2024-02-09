@@ -22,7 +22,7 @@ sol = {'NaCl','MgSO$_4$'};
 
 for m = 1:length(sol)
     figure(m)
-    [T_liq,Sb_liq] = liquidus_FREZCHEM(fn{m});
+    [P,T_liq,Sb_liq] = liquidus_FREZCHEM(fn{m});
     Teut = min(T_liq);
     S = linspace(0,max(Sb_liq),100); % ppt
     T = linspace(100,Tmelt(101325),1000)-273.15; % C
@@ -116,7 +116,7 @@ sol = {'Cl-Dominated','SO$_4$-Dominated'};
 
 for m = 1:length(sol)
     figure(m+2)
-    [T_liq,Sb_liq] = liquidus_FREZCHEM(fn{m});
+    [P,T_liq,Sb_liq] = liquidus_FREZCHEM(fn{m});
     Teut = min(T_liq);
     S = linspace(0,max(Sb_liq),100); % ppt
     T = linspace(100,Tmelt(101325),1e3)-273.15; % C

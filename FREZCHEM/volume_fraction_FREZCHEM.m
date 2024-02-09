@@ -150,6 +150,8 @@ else
             k_star = FrOut.eutectic.sm/ms_b0;
             Vs_V(Tmat<T_FrOut(end)) = S*k_star./...
                 (S*k_star+(1000-S*k_star).*(rho_ss./rho_i));
+            
+            disp(['k* = ',num2str(k_star)])
         end
     end
     

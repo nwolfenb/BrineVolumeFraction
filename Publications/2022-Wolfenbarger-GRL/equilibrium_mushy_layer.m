@@ -2,9 +2,9 @@
 % Used to generate the plots shown in Figure S2 in
 %
 % Wolfenbarger, N. S., Fox-Powell, M. G., Buffo, J. J., Soderlund, K. M., &
-% Blankenship, D. D. (submitted). The Habitability of Brine Pockets in
-% Europa's Ice Shell. Geophysical Research Letters,
-% https://doi.org/10.1002/essoar.10512037.1.
+% Blankenship, D. D. (2022). The Habitability of Brine Pockets in
+% Europa's Ice Shell. Geophysical Research Letters, 49(22), e2022GL100586,
+% https://doi.org/10.1029/2022GL10058/6.
 %
 % by following the approach of 
 %
@@ -17,7 +17,8 @@
 %
 % Griewank, P. J., and D. Notz (2013), Insights into brine dynamics and sea
 % ice desalination from a 1-D model study of gravity drainage, Journal of
-% Geophysical Research: Oceans, 118, 3370–3386, doi:10.1002/jgrc.20247.
+% Geophysical Research: Oceans, 118(7), 3370–3386, 
+% https://doi.org/10.1002/jgrc.20247
 
 clear all; close all; clc
 addpath('..\..\FREZCHEM')
@@ -53,8 +54,8 @@ H = 10e3; % m
 Soc_vec = linspace(1,100,10); % ppt
 
 for m = 1:length(fn)
-    [T_liq,Sb_liq] = liquidus_FREZCHEM(fn{m});
-    [T,rho_b] = brine_density_FREZCHEM(fn{m});
+    [P,T_liq,Sb_liq] = liquidus_FREZCHEM(fn{m});
+    [P,T,rho_b] = brine_density_FREZCHEM(fn{m});
     T0 = -10+273.15;
     Toc_vec = interp1(Sb_liq(Sb_liq<110),T_liq(Sb_liq<110),Soc_vec)+273.15; % K
     hint = zeros(size(Soc_vec));

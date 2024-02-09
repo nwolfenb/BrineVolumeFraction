@@ -2,10 +2,9 @@
 % Used to generate the plots shown in Figure 1 in
 %
 % Wolfenbarger, N. S., Fox-Powell, M. G., Buffo, J. J., Soderlund, K. M., &
-% Blankenship, D. D. (submitted). The Habitability of Brine Pockets in
-% Europa's Ice Shell. Geophysical Research Letters,
-% https://doi.org/10.1002/essoar.10512037.1.
-
+% Blankenship, D. D. (2022). The Habitability of Brine Pockets in
+% Europa's Ice Shell. Geophysical Research Letters, 49(22), e2022GL100586,
+% https://doi.org/10.1029/2022GL100586.
 
 clear all; close all; clc
 addpath('..\..\FREZCHEM')

@@ -891,11 +891,9 @@ while ischar(tline)
             else
                 ind = find(FrOut.solid_moles(n,2:end)>0);
                 ind = ind + 1;
-                 FrOut.rho_ss(n) = nansum(FrOut.solid_moles(n,ind)'.*...
-                     solid_species_mass(ind))/nansum((FrOut.solid_moles(n,ind)'.*...
-                     solid_species_mass(ind))./rho_solid_species(ind));
-                if isnan(FrOut.rho_ss(n))
-                end
+                 FrOut.rho_ss(n) = sum(FrOut.solid_moles(n,ind)'.*...
+                     solid_species_mass(ind),'omitnan')/sum((FrOut.solid_moles(n,ind)'.*...
+                     solid_species_mass(ind))./rho_solid_species(ind),'omitnan');
             end
         end
     end

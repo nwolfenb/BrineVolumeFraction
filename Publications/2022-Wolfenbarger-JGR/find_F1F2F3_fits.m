@@ -21,7 +21,7 @@ addpath('..\..\Water Properties')
 
 %% Earth
 fn = '..\..\Freezing Simulations\FREZCHEM\v13.3\Seawater\Gitterman';
-[T,F1,F2,F3] = F1F2F3_FREZCHEM(fn);
+[P,T,F1,F2,F3] = F1F2F3_FREZCHEM(fn);
 T = round(T,1);
 
 figure
@@ -209,7 +209,7 @@ fprintf('\n')
 
 %% NaCl
 fn = '..\..\Freezing Simulations\FREZCHEM\v15.1\NaCl\NaCl_1ppt';
-[T,F1,F2,~] = F1F2F3_FREZCHEM(fn);
+[P,T,F1,F2,~] = F1F2F3_FREZCHEM(fn);
 T = round(T,1);
 
 figure
@@ -276,7 +276,7 @@ fprintf('\n')
 
 %% MgSO4
 fn = '..\..\Freezing Simulations\FREZCHEM\v15.1\MgSO4\MgSO4_1ppt';
-[T,F1,F2,~] = F1F2F3_FREZCHEM(fn);
+[P,T,F1,F2,~] = F1F2F3_FREZCHEM(fn);
 T = round(T,1);
 
 figure
@@ -343,7 +343,7 @@ fprintf('\n')
 
 %% Europa (Cl-Dominated)
 fn = '..\..\Freezing Simulations\FREZCHEM\v15.1\Cl_Na_Mg_SO4_seawater\Cl_Na_Mg_SO4_seawater';
-[T,F1,F2,F3] = F1F2F3_FREZCHEM(fn);
+[P,T,F1,F2,F3] = F1F2F3_FREZCHEM(fn);
 T = round(T,1);
 
 figure
@@ -498,7 +498,7 @@ fprintf('\n')
 
 %% Europa (SO4-Dominated)
 fn = '..\..\Freezing Simulations\FREZCHEM\v15.1\SO4_Mg_Na_Cl\SO4_Mg_Na_Cl';
-[T,F1,F2,F3] = F1F2F3_FREZCHEM(fn);
+[P,T,F1,F2,F3] = F1F2F3_FREZCHEM(fn);
 T = round(T,1);
 
 figure

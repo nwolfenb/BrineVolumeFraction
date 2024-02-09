@@ -2,9 +2,9 @@
 % Used to generate the plots shown in Figure 2 in
 %
 % Wolfenbarger, N. S., Fox-Powell, M. G., Buffo, J. J., Soderlund, K. M., &
-% Blankenship, D. D. (submitted). The Habitability of Brine Pockets in
-% Europa's Ice Shell. Geophysical Research Letters,
-% https://doi.org/10.1002/essoar.10512037.1.
+% Blankenship, D. D. (2022). The Habitability of Brine Pockets in
+% Europa's Ice Shell. Geophysical Research Letters, 49(22), e2022GL100586,
+% https://doi.org/10.1029/2022GL100586.
 
 clear all; close all; clc
 addpath('..\..\FREZCHEM')
@@ -21,7 +21,7 @@ fns = {'..\..\Freezing Simulations\FREZCHEM\v15.1\Cl_Na_Mg_SO4_seawater\Cl_Na_Mg
 figure
 for m = 1:length(fns)
     fn = fns{m};
-    [T_liq,Sb_liq] = liquidus_FREZCHEM(fn);
+    [P,T_liq,Sb_liq] = liquidus_FREZCHEM(fn);
     Teut = min(T_liq);
     Smax = 100;
     S = linspace(0,Smax,1000); % ppt

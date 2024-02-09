@@ -1,14 +1,14 @@
 # BrineVolumeFraction
 MATLAB code base for modeling the volume fraction of brine, salt, and ice (Ih) as a function of temperature and bulk ice salinity using phase behavior functions derived from the output of freezing simulations using FREZCHEM v13.3 and 15.1. This code base is used to generate the results in the following manuscripts:
 
-(1) Wolfenbarger, N. S., Fox-Powell, M. G., Buffo, J. J., Soderlund, K. M., & Blankenship, D. D. (2022). Compositional controls on the distribution of brine in Europa's ice shell. Journal of Geophysical Research: Planets, 127, e2022JE007305. https://doi.org/10.1029/2022JE007305
+(1) Wolfenbarger, N. S., Fox-Powell, M. G., Buffo, J. J., Soderlund, K. M., & Blankenship, D. D. (2022). Compositional controls on the distribution of brine in Europa's ice shell. Journal of Geophysical Research: Planets, 127(9), e2022JE007305. https://doi.org/10.1029/2022JE007305
 
-(2) Wolfenbarger, N. S., Fox-Powell, M. G., Buffo, J. J., Soderlund, K. M., & Blankenship, D. D. (Submitted). The Habitability of Brine Pockets in Europa's Ice Shell. Geophysical Research Letters, https://doi.org/10.1002/essoar.10512037.1
+(2) Wolfenbarger, N. S., Fox-Powell, M. G., Buffo, J. J., Soderlund, K. M., & Blankenship, D. D. (2022). The Habitability of Brine Pockets in Europa's Ice Shell. Geophysical Research Letters, % Europa's Ice Shell. Geophysical Research Letters, 49(22), e2022GL100586, https://doi.org/10.1029/2022GL100586.
 
 The code base includes the following functions:  
 FREZCHEM\
-[T,rhob] = brine_density_FREZCHEM(fn)
-[T,F1,F2,F3] = F1F2F3_FREZCHEM(fn)
+[P,T,rhob] = brine_density_FREZCHEM(fn)
+[P,T,F1,F2,F3,k_star,rho_ss] = F1F2F3_FREZCHEM(fn)
 [T,Sb] = liquidus_FREZCHEM(fn)  
 FrOut = read_FrOut(fn)  
 FrOut = read_FrOut133(fn)  
@@ -48,15 +48,16 @@ FREZCHEM\v15.1\Cl_Na_Mg_SO4_seawater
 FREZCHEM\v15.1\SO4_Mg_Na_Cl
 PHREEQC\ColdChem
 PHREEQC\frezchem
+PHREEQC\frezchem_ColdChem
 
 FUNCTIONS
-[T,rhob] = brine_density_FREZCHEM(fn)
+[P,T,rhob] = brine_density_FREZCHEM(fn)
 brine_density_FREZCHEM(fn) extracts the temperature and brine density (where ice is stable) from the output file of a FREZCHEM v13.3 or 15.1 simulation, including a data point at the pure ice pressure melting temperature obtained from Tmelt(P).
 
-[T,F1,F2,F3] = F1F2F3_FREZCHEM(fn)
+[P,T,F1,F2,F3,k_star,rho_ss] = F1F2F3_FREZCHEM(fn)
 F1F2F3_FREZCHEM(fn) derives phase behavior functions from the FREZCHEM output file (fn).
 
-[T,Sb] = liquidus_FREZCHEM(fn)  
+[P,T,Sb] = liquidus_FREZCHEM(fn)
 liquidus_FREZCHEM extracts the temperature and brine salinity (where ice is stable) from the output file of a FREZCHEM v13.3 or 15.1 simulation, including a data point at the pure ice pressure melting temperature obtained from Tmelt(P). 
 
 FrOut = read_FrOut(fn)  
@@ -68,7 +69,7 @@ read_FrOut133(fn) creates a structure (FrOut) from a FREZCHEM v13.3 output file 
 FrOut = read_FrOut151(fn)  
 read_FrOut151(fn) creates a structure (FrOut) from a FREZCHEM v15.1 output file (fn) that contains bulk properties, solution properties, and solid properties at each convergent temperature step. It also estimates solid properties at the eutectic temperature (as opposed to the final convergent temperature step).
 
-[Tmat,Smat,Vi_V, Vb_V, Vs_V] = volume_fraction_FREZCHEM(T,S,fn)  
+[P,Tmat,Smat,Vi_V, Vb_V, Vs_V] = volume_fraction_FREZCHEM(T,S,fn)  
 volume_fraction_FREZCHEM(T,S,fn) calculates the volume fraction of ice (Vi_V), brine (Vb_V), and solid salt (Vs_V) as a function of temperature (T) and bulk ice salinity (S), using the phase behavior functions derived from the FREZCHEM output file (fn).
 
 rho = ice_density(T,P)  
@@ -120,7 +121,8 @@ FREZCHEM\v15.1\Cl_Na_Mg_SO4_seawater contains the FREZCHEM v15.1 input and outpu
 
 FREZCHEM\v15.1\SO4_Mg_Na_Cl contains the FREZCHEM v15.1 input and output files used to simulate the freezing of the sulfate-dominated analog endmember Europan ocean composition.
 
-PHREEQC\ColdChem contains the PHREEQC input and output files (using the ColdChem database) used to simulate the freezing of a 1 ppt NaCl solution, a 1 ppt MgSO4 solution, the chloride-dominated analog endmember Europan ocean composition, and the sulfate-dominated analog endmember Europan ocean composition. 
+PHREEQC\ColdChem contains the PHREEQC ColdChem database file and input and output files (using the ColdChem database) used to simulate the freezing of a 1 ppt NaCl solution, a 1 ppt MgSO4 solution, the chloride-dominated analog endmember Europan ocean composition, and the sulfate-dominated analog endmember Europan ocean composition. 
 
-PHREEQC\frezchem contains the PHREEQC input and output files (using the frezchem database) used to simulate the freezing of a 1 ppt NaCl solution, a 1 ppt MgSO4 solution, the chloride-dominated analog endmember Europan ocean composition, and the sulfate-dominated analog endmember Europan ocean composition. 
+PHREEQC\frezchem contains the PHREEQC frezchem database file and input and output files (using the frezchem database) used to simulate the freezing of a 1 ppt NaCl solution, a 1 ppt MgSO4 solution, the chloride-dominated analog endmember Europan ocean composition, and the sulfate-dominated analog endmember Europan ocean composition. 
 
+PHREEQC\frezchem contains the PHREEQC frezchem_ColdChem database file and input and output files (using the frezchem database) used to simulate the freezing of a 1 ppt NaCl solution, a 1 ppt MgSO4 solution, the chloride-dominated analog endmember Europan ocean composition, and the sulfate-dominated analog endmember Europan ocean composition. 
