@@ -168,4 +168,4 @@ PHREEQC\ColdChem contains the PHREEQC ColdChem database file and input and outpu
 
 PHREEQC\frezchem contains the PHREEQC frezchem database file and input and output files (using the frezchem database) used to simulate the freezing of a 1 ppt NaCl solution, a 1 ppt MgSO4 solution, the chloride-dominated analog endmember Europan ocean composition, and the sulfate-dominated analog endmember Europan ocean composition. 
 
-PHREEQC\frezchem contains the PHREEQC frezchem_ColdChem database file and input and output files (using the frezchem database) used to simulate the freezing of a 1 ppt NaCl solution, a 1 ppt MgSO4 solution, the chloride-dominated analog endmember Europan ocean composition, and the sulfate-dominated analog endmember Europan ocean composition. 
+PHREEQC\frezchem_ColdChem contains the PHREEQC frezchem_ColdChem database file and input and output files (using the frezchem database) used to simulate the freezing of a 1 ppt NaCl solution, a 1 ppt MgSO4 solution, the chloride-dominated analog endmember Europan ocean composition, and the sulfate-dominated analog endmember Europan ocean composition. 
