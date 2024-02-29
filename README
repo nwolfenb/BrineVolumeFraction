@@ -5,15 +5,18 @@ MATLAB code base for modeling the volume fraction of brine, salt, and ice (Ih) a
 
 (2) Wolfenbarger, N. S., Fox-Powell, M. G., Buffo, J. J., Soderlund, K. M., & Blankenship, D. D. (2022). The Habitability of Brine Pockets in Europa's Ice Shell. Geophysical Research Letters, % Europa's Ice Shell. Geophysical Research Letters, 49(22), e2022GL100586, https://doi.org/10.1029/2022GL100586.
 
+(3) Wolfenbarger, N. S., Blankenship, D. D., Young, D. A., Scanlan, K. M., Chivers, C. J., Findlay, D., Steinbruegge, G. B., Chan, K., Grima, C., Soderlund, K. M., & Schroeder, D. M. (XXXX). Radar Characterization of Salt Layers in Europa’s Ice Shell as a Window into Critical Ice-Ocean Exchange Processes.
+
+
 The code base includes the following functions:  
 FREZCHEM\
-[P,T,rhob] = brine_density_FREZCHEM(fn)
+[P,T,rho_b] = brine_density_FREZCHEM(fn)
 [P,T,F1,F2,F3,k_star,rho_ss] = F1F2F3_FREZCHEM(fn)
-[T,Sb] = liquidus_FREZCHEM(fn)  
+[P,T,Sb] = liquidus_FREZCHEM(fn)  
 FrOut = read_FrOut(fn)  
 FrOut = read_FrOut133(fn)  
 FrOut = read_FrOut151(fn) 
-[Tmat,Smat,Vi_V, Vb_V, Vs_V] = volume_fraction_FREZCHEM(T,S,fn)   
+[P,Tmat,Smat,Vi_V, Vb_V, Vs_V] = volume_fraction_FREZCHEM(T,S,fn)   
 
 Ice Ih Properties\
 T = Tmelt(P)  
@@ -23,6 +26,13 @@ P = Pmelt(T)
 P = Psub(T)
 P = Psat(T)
 rho = ice_density(T,P)  
+
+PHREEQC\
+[P,T,rho_b] = brine_density_PHREEQC(fn)
+[P,T,F1,F2,F3,k_star,rho_ss] = F1F2F3_PHREEQC(fn)
+[P,T,Sb] = liquidus_PHREEQC(fn)
+pqo = read_pqo(fn)  
+[P,Tmat,Smat,Vi_V, Vb_V, Vs_V] = volume_fraction_PHREEQC(T,S,fn)
 
 Water Properties\
 rho = water_density(T,P)  
@@ -36,6 +46,12 @@ Vb_plots.m
 equilibrium_mushy_layer.m
 habitability_metrics_europa.m
 Vb_europa_zoom.m
+
+2024-Wolfenbarger\
+MgSO4_phase_diagram.m
+R_ice_salt.m
+salt_layer_thickness.m
+Sb0_constraints.m
 
 MAT-files:
 elemental_properties.mat
@@ -51,7 +67,9 @@ PHREEQC\frezchem
 PHREEQC\frezchem_ColdChem
 
 FUNCTIONS
-[P,T,rhob] = brine_density_FREZCHEM(fn)
+
+FREZCHEM\
+[P,T,rho_b] = brine_density_FREZCHEM(fn)
 brine_density_FREZCHEM(fn) extracts the temperature and brine density (where ice is stable) from the output file of a FREZCHEM v13.3 or 15.1 simulation, including a data point at the pure ice pressure melting temperature obtained from Tmelt(P).
 
 [P,T,F1,F2,F3,k_star,rho_ss] = F1F2F3_FREZCHEM(fn)
@@ -72,6 +90,7 @@ read_FrOut151(fn) creates a structure (FrOut) from a FREZCHEM v15.1 output file 
 [P,Tmat,Smat,Vi_V, Vb_V, Vs_V] = volume_fraction_FREZCHEM(T,S,fn)  
 volume_fraction_FREZCHEM(T,S,fn) calculates the volume fraction of ice (Vi_V), brine (Vb_V), and solid salt (Vs_V) as a function of temperature (T) and bulk ice salinity (S), using the phase behavior functions derived from the FREZCHEM output file (fn).
 
+Ice Ih Properties\
 rho = ice_density(T,P)  
 ice_density(T,P) calculates the density of ice Ih using the equations of state, originally published by Wagner et al. (2011), included in the International Association for the Properties of Water and Steam (IAPWS) Revised Release on the Equation of State 2006 for H2O Ice Ih: IAPWS R10-06(2009).
 
@@ -93,19 +112,43 @@ Tsat(P) calculates the saturation temperature (T) of water given pressure (P) us
 T = Tsub(P)
 Tsub(P) calculates the sublimation temperature (T) of ice Ih given pressure (P) using the equations originally published by Wagner et al. (2011), included in the International Association for the Properties of Water and Steam (IAPWS) Revised Release on the Pressure along the Melting and Sublimation Curves of Ordinary Water Substance: IAPWS R14-08(2011).
 
+PHREEQC\
+[P,T,rho_b] = brine_density_PHREEQC(fn)
+brine_density_PHREEQC(fn) extracts the pressure (Pa), temperature (C) and brine density (g/cm^3) for a solution composition and pressure defined by the PHREEQC output over the temperature range from the freezing point to the eutectic point.
+
+[P,T,F1,F2,F3,k_star,rho_ss] = F1F2F3_PHREEQC(fn)
+F1F2F3_PHREEQC(fn) calculates the phase behavior functions F1 and F2 in Cox and Weeks (1983) and a new phase behavior function F3 from freezing simulations in PHREEQC over a temperature range from the pure ice pressure melting point to the eutectic point.
+
+[P,T,Sb] = liquidus_PHREEQC(fn)
+liquidus_PHREEQC(fn) extracts the temperature (C) and brine salinity (ppt) which define the liquidus curve for a solution composition and pressure defined by PHREEQC over the temperature range from the freezing point to the eutectic point.
+
+pqo = read_pqo(fn) 
+read_pqo(fn) extracts data from PHREEQC output file, assuming input file decreases reaction temperature in steps.
+ 
+[P,Tmat,Smat,Vi_V, Vb_V, Vs_V] = volume_fraction_PHREEQC(T,S,fn)
+
+Water Properties\
 rho = water_density(T,P)  
-water_density(T,p) calculates the density of water as a function of temperature (T) and pressure (P) using the equations of state, originally published by Feistel et al. (2003, 2008), included in the International Association for the Properties of Water and Steam (IAPWS) Supplementary Release on a Computationally Efficient Thermodynamic Formulation for Liquid Water for Oceanographic Use: IAPWS SR7-09. 
+water_density(T,P) calculates the density of water as a function of temperature (T) and pressure (P) using the equations of state, originally published by Feistel et al. (2003, 2008), included in the International Association for the Properties of Water and Steam (IAPWS) Supplementary Release on a Computationally Efficient Thermodynamic Formulation for Liquid Water for Oceanographic Use: IAPWS SR7-09. 
 
 SCRIPTS
 2022-Wolfenbarger-JGR\find_F1F2F3_fits.m performs curve fitting to the output F1F2F3_FREZCHEM to determine the piecewise polynomial representation of the phase behavior functions used in "Compositional Controls on the Distribution of Brine in Europa's Ice Shell", pubslihed in JGR: Planets.
 
 2022-Wolfenbarger-JGR\Vb_plots.m generates the plots shown in Figures 7 and 8 in "Compositional Controls on the Distribution of Brine in Europa's Ice Shell", published in JGR: Planets.
 
-2022-Wolfenbarger-GRL\equilibrium_mushy_layer.m generates the plots shown in Figure S2 in "The Habitability of Brine Pockets in Europa's Ice Shell", submitted to GRL.
+2022-Wolfenbarger-GRL\equilibrium_mushy_layer.m generates the plots shown in Figure S2 in "The Habitability of Brine Pockets in Europa's Ice Shell", published in GRL.
 
-2022-Wolfenbarger-GRL\habitability_metrics_europa.m generates the plots shown in Figure 1 in "The Habitability of Brine Pockets in Europa's Ice Shell", submitted to GRL.
+2022-Wolfenbarger-GRL\habitability_metrics_europa.m generates the plots shown in Figure 1 in "The Habitability of Brine Pockets in Europa's Ice Shell", published in GRL.
 
-2022-Wolfenbarger-GRL\Vb_europa_zoom.m generates the plots shown in Figure 2 in "The Habitability of Brine Pockets in Europa's Ice Shell", submitted to GRL.
+2022-Wolfenbarger-GRL\Vb_europa_zoom.m generates the plots shown in Figure 2 in "The Habitability of Brine Pockets in Europa's Ice Shell", published in GRL.
+
+2024-Wolfenbarger\MgSO4_phase_diagram.m generates the plot shown in Figure 1a in "Radar Characterization of Salt Layers in Europa’s Ice Shell as a Window into Critical Ice-Ocean Exchange Processes"
+
+2024-Wolfenbarger\R_ice_salt.m generates the plot shown in Figure 2 in "Radar Characterization of Salt Layers in Europa’s Ice Shell as a Window into Critical Ice-Ocean Exchange Processes"
+
+2024-Wolfenbarger\salt_layer_thickness.m generates the plot shown in Figure 3 in "Radar Characterization of Salt Layers in Europa’s Ice Shell as a Window into Critical Ice-Ocean Exchange Processes"
+
+2024-Wolfenbarger\Sb0_constraints.m generates the plot shown in Figure 4 in "Radar Characterization of Salt Layers in Europa’s Ice Shell as a Window into Critical Ice-Ocean Exchange Processes"
 
 MAT-FILES
 elemental_properties.mat contains the data describing the properties of elements (e.g., name, symbol, atomic number, atomic weight, etc.) originally found on https://lwn.net/Articles/723824/
