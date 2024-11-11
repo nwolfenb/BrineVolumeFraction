@@ -13,7 +13,7 @@ function [P,Tmat,Smat,Vi_V, Vb_V, Vs_V] = volume_fraction_FREZCHEM(T,S,fn)
 % Inputs:
 % T     Temperature (C), scalar or vector
 % S     Bulk salinity of ice (ppt), scalar or vector
-% fn    filename of FREZCHEM output file, string
+% fn    Filename of FREZCHEM output file, string
 %
 % Outputs:
 % P     Pressure (Pa), scalar

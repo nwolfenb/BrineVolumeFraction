@@ -7,11 +7,11 @@ function rho = water_density(T,P)
 % rho = water_density(T,P)
 %
 % Inputs:
-% T, Temperature    (K)
-% P, Pressure       (Pa)
+% T     Temperature (K)
+% P     Pressure (Pa)
 %
 % Outputs:
-% rho, Density      (kg/m^3)
+% rho   Density (kg/m^3)
 %
 % Source:
 % IAPWS SR7-09(2009)
@@ -23,7 +23,7 @@ function rho = water_density(T,P)
 %
 % Author:
 % Natalie Wolfenbarger
-% nwolfenb@utexas.edu
+% nswolfen@gmail.com
 %
 %% Column Vectors
 flip = false;

@@ -7,10 +7,10 @@ function T = Tsat(P)
 % T = Tsat(P)
 %
 % Inputs:
-% P, Pressure       (Pa)
+% P     Pressure (Pa), scalar or vector
 %
 % Outputs:
-% T, Temperature    (K)
+% T     Temperature (K), scalar or vector
 %
 % Source:
 % IAPWS R7-97(2012)
@@ -22,7 +22,7 @@ function T = Tsat(P)
 %
 % Author:
 % Natalie Wolfenbarger
-% nwolfenb@utexas.edu
+% nswolfen@gmail.com
 %
 %%
 Tmin = 273.15;

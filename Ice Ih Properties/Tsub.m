@@ -1,5 +1,5 @@
 function T = Tsub(P)
-% Calculates the sublimation temperature of ice Ih as a function of
+%% Calculates the sublimation temperature of ice Ih as a function of
 % pressure from 1.9 x 10^(-40) Pa to the vapor–liquid–solid triple point.
 % Values outside the valid range will output as NaN. 
 %
@@ -7,10 +7,10 @@ function T = Tsub(P)
 % T = Tsub(P)
 %
 % Inputs:
-% P, Pressure       (Pa)
+% P     Pressure (Pa), scalar or vector
 %
 % Outputs:
-% T, Temperature    (K)
+% T     Temperature (K), scalar or vector
 %
 % Source:
 % https://doi.org/10.1063/1.3657937
@@ -22,7 +22,7 @@ function T = Tsub(P)
 %
 % Author:
 % Natalie Wolfenbarger
-% nwolfenb@utexas.edu
+% nswolfen@gmail.com
 %
 %%
 Tmin = 50;

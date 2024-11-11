@@ -4,13 +4,13 @@ function T = Tmelt(P)
 % triple point. Values outside the valid range will output as NaN. 
 %
 % Syntax:
-% T = Tmelt(p)
+% T = Tmelt(P)
 %
 % Inputs:
-% P, Pressure       (Pa)
+% P     Pressure (Pa), scalar or vector
 %
 % Outputs:
-% T, Temperature    (K)
+% T     Temperature (K), scalar or vector
 %
 % Source:
 % https://doi.org/10.1063/1.3657937
@@ -22,7 +22,7 @@ function T = Tmelt(P)
 %
 % Author:
 % Natalie Wolfenbarger
-% nwolfenb@utexas.edu
+% nswolfen@gmail.com
 %
 %%
 Tmin = 251.165;

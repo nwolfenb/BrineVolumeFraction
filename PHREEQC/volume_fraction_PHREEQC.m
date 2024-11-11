@@ -12,16 +12,16 @@ function [P,Tmat,Smat,Vi_V, Vb_V, Vs_V] = volume_fraction_PHREEQC(T,S,fn)
 %
 % Inputs:
 % T     Temperature (C), scalar or vector
-% S     Bulk salinity of ice (ppt), scalar or vector
-% fn    filename of FREZCHEM output file, string
+% S     Bulk Ice Salinity (ppt), scalar or vector
+% fn    Filename of PHREEQC output file, string
 %
 % Outputs:
 % P     Pressure (Pa), scalar
 % Tmat  Temperature (C), vector or matrix
-% Smat  Bulk salinity of ice (ppt), vector or matrix
-% Vi_V  Ice volume fraction, vector or matrix
-% Vb_V  Brine volume fraction, vector or matrix
-% Vs_V  Salt volume fraction, vector or matrix
+% Smat  Bulk Ice Salinity (ppt), vector or matrix
+% Vi_V  Ice Volume Fraction, vector or matrix
+% Vb_V  Brine Volume Fraction, vector or matrix
+% Vs_V  Salt Volume Fraction, vector or matrix
 %
 % Author:
 % Natalie Wolfenbarger

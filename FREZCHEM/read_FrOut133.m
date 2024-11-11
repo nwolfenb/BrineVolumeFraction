@@ -5,10 +5,9 @@ function FrOut = read_FrOut133(fn)
 % FrOut = read_FrOut133(fn)
 %
 % Inputs:
-% fn        filename
+% fn        Filename of FREZCHEM v13.3 output file, string
 %
 % Outputs:
-%
 % FrOut     structure
 %-----------Size-----------------------------------------------------------
 %           N = number of temperature points

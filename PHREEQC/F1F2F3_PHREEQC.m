@@ -4,20 +4,31 @@ function [P,T,F1,F2,F3,k_star,rho_ss] = F1F2F3_PHREEQC(fn)
 % over a temperature range from the pure ice pressure melting point to the
 % eutectic point.
 %
+% Syntax:
+% [P,T,F1,F2,F3,k_star,rho_ss] = F1F2F3_PHREEQC(fn)
+%
 % Inputs:
-% fn    filename of FREZCHEM output file, string
+% fn        Filename of FREZCHEM output file, string
 %
 % Outputs:
-% P         pressure specified in freezing simulation
-% T         temperature range (pure ice pressure melting point to eutectic)
-% F1        rho_b*Sb*(1+k), k = ms_ss/ms_b
-% F2        (1+C)*rho_b/rho_i-C*rho_b/rho_ss-1), C = mss/mb 
-% F3        C*rho_b/rho_ss, C = mss/mb
-% k_star    scale factor to account for hydration of minerals at/beyond eutectic
-% rho_ss    total density of solid salt precipitating at/beyond the eutectic
+% P         Pressure (Pa), scalar
+% T         Temperature (C), vector
+% F1        rho_b*Sb*(1+k), k = ms_ss/ms_b, vector
+% F2        (1+C)*rho_b/rho_i-C*rho_b/rho_ss-1), C = mss/mb, vector 
+% F3        C*rho_b/rho_ss, C = mss/mb, vector
+% k_star    Scale factor to account for hydration of minerals at/beyond
+%           eutectic, scalar
+% rho_ss    Average density of solid salt precipitating at/beyond the
+%           eutectic (g/cm^3), scalar
+%
+% Author:
+% Natalie Wolfenbarger
+% nswolfen@gmail.com
+%
+%% Read PHREEQC output file
+pqo = read_pqo(fn);
 
 %% Check if melt is stable for simulated pressure
-pqo = read_pqo(fn);
 p = pqo.pressure; % atm
 if ~all(p==p(1))
     warning('Pressure appears to change between temperature steps in FREZCHEM output file, adopting value at initial temperature step.')

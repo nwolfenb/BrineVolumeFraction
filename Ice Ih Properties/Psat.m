@@ -7,10 +7,10 @@ function P = Psat(T)
 % P = Psat(T)
 %
 % Inputs:
-% T, Temperature    (K)
+% T     Temperature (K), scalar or vector
 %
 % Outputs:
-% P, Pressure       (Pa)
+% P     Pressure (Pa), scalar or vector
 %
 % Source:
 % IAPWS R7-97(2012)
@@ -22,7 +22,7 @@ function P = Psat(T)
 %
 % Author:
 % Natalie Wolfenbarger
-% nwolfenb@utexas.edu
+% nswolfen@gmail.com
 %
 %%
 Tmin = 273.15;

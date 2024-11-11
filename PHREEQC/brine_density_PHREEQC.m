@@ -3,14 +3,22 @@ function [P,T,rho_b] = brine_density_PHREEQC(fn)
 % for a solution composition and pressure defined by the PHREEQC output
 % over the temperature range from the freezing point to the eutectic point.
 %
+% Syntax:
+% [P,T,rho_b] = brine_density_PHREEQC(fn)
+%
 % Inputs:
-% fn    filename of PHREEQC output file, string
+% fn    Filename of PHREEQC output file, string
 %
 % Outputs:
-% P     Pressure (MPa)
-% T     Temperature (C)
-% rho_b  Brine Density (g/cm^3)
-
+% P     Pressure (MPa), scalar
+% T     Temperature (C), vector
+% rho_b Brine Density (g/cm^3), vector
+%
+% Author:
+% Natalie Wolfenbarger
+% nswolfen@gmail.com
+%
+%% Read PHREEQC output file
 pqo = read_pqo(fn);
 
 %% Check Pressure

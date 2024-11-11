@@ -7,10 +7,10 @@ function P = Pmelt(T)
 % P = Pmelt(T)
 %
 % Inputs:
-% T, Temperature    (K)
+% T     Temperature (K), scalar or vector
 %
 % Outputs:
-% P, Pressure       (Pa)
+% P     Pressure (Pa), scalar or vector
 %
 % Source:
 % https://doi.org/10.1063/1.3657937
@@ -22,7 +22,7 @@ function P = Pmelt(T)
 %
 % Author:
 % Natalie Wolfenbarger
-% nwolfenb@utexas.edu
+% nswolfen@gmail.com
 %
 %%
 Tmin = 251.165;

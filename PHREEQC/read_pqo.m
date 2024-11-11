@@ -7,11 +7,13 @@ function pqo = read_pqo(fn)
 %
 % in PHREEQC input file.
 %
+% Syntax:
+% pqo = read_pqo(fn)
+%
 % Inputs:
-% fn        filename
+% fn        Filename of PHREEQC output file, string
 %
 % Outputs:
-%
 % pqo    structure
 %-----------Size-----------------------------------------------------------
 %           N = number of temperature steps
@@ -76,6 +78,11 @@ function pqo = read_pqo(fn)
 %
 % *For now, the eutectic temperature is defined as the temperature where
 % the mass of brine is less than 1e-3 kg
+%
+% Author:
+% Natalie Wolfenbarger
+% nswolfen@gmail.com
+%
 %% Elemental Properties (PHREEQC)
 
 % SOLUTION_MASTER_SPECIES

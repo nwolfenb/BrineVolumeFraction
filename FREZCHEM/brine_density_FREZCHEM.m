@@ -4,14 +4,22 @@ function [P,T,rho_b] = brine_density_FREZCHEM(fn)
 % or 15.1 over the temperature range from the freezing point to the
 % eutectic point.
 %
+% Syntax:
+% [P,T,rho_b] = brine_density_FREZCHEM(fn)
+%
 % Inputs:
-% fn    filename of FREZCHEM output file, string
+% fn    Filename of FREZCHEM output file, string
 %
 % Outputs:
-% P     Pressure (MPa)
-% T     Temperature (C)
-% rho_b  Brine Density (g/cm^3)
-
+% P     Pressure (MPa), scalar
+% T     Temperature (C), vector
+% rho_b Brine Density (g/cm^3), vector
+%
+% Author:
+% Natalie Wolfenbarger
+% nswolfen@gmail.com
+%
+%% Read FREZCHEM output file
 FrOut = read_FrOut(fn);
 
 %% Check Pressure

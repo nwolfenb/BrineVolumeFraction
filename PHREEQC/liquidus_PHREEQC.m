@@ -7,12 +7,12 @@ function [P,T,Sb] = liquidus_PHREEQC(fn)
 % [P,T,Sb] = liquidus_PHREEQC(fn)
 %
 % Inputs:
-% fn    filename of PHREEQC output file, string
+% fn    Filename of PHREEQC output file, string
 %
 % Outputs:
-% P     Pressure (Pa)
-% T     Temperature (C)
-% Sb    Brine Salinity (ppt)
+% P     Pressure (Pa), scalar
+% T     Temperature (C), vector
+% Sb    Brine Salinity (ppt), vector
 %
 % Author:
 % Natalie Wolfenbarger

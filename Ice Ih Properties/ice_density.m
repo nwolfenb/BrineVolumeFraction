@@ -7,11 +7,11 @@ function rho = ice_density(T,P)
 % rho = ice_density(T,P)
 %
 % Inputs:
-% T, Temperature    (K)
-% P, Pressure       (Pa)
+% T     Temperature (K), scalar or vector
+% P     Pressure (Pa), scalar or vector
 %
 % Outputs:
-% rho, Density      (kg/m^3)
+% rho   Density (kg/m^3), scalar or vector
 %
 % Source:
 % IAPWS R10-06(2009)
@@ -39,11 +39,6 @@ end
 
 if length(P)~= length(T) && (~isscalar(P) && ~isscalar(T))
     error('Pressure/temperature input must either be a vector the same length as the temperature/pressure or a scalar value that applies to all temperatures/pressures.')
-end
-
-%% Convert to Kelvin
-if min(T,[],'all')<0
-    T = T+273.15;
 end
 
 %% Coefficients of the equation of state (Gibbs potential function)
