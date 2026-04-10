@@ -19,9 +19,18 @@ function [P,T,Sb,rho_b,sigma] = brine_properties_PHREEQC(fn)
 % Author:
 % Natalie Wolfenbarger
 % nswolfen@gmail.com
-%
+
 %% Read PHREEQC output file
 pqo = read_pqo(fn);
+
+%% Check if ColdChem Database
+if strcmp(pqo.database,'ColdChem.dat')
+    error(['ColdChem.dat was used to generate PHREEQC output file.',...
+        ' Because ColdChem does not contain molar volumes',...
+        ' for solution species, it is unable to provide brine density.',...
+        ' Similary, it does not include the species diffusion coefficients',...
+        ' necessary to model electrical conductivity.'])
+end
 
 %% Check Pressure
 p = pqo.pressure; % atm

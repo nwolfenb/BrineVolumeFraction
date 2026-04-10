@@ -23,8 +23,8 @@ function P = Psub(T)
 % Author:
 % Natalie Wolfenbarger
 % nswolfen@gmail.com
-%
-%%
+
+%% Psub
 Tmin = 50;
 Tmax = 273.16;
 

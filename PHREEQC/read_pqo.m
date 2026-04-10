@@ -21,6 +21,10 @@ function pqo = read_pqo(fn)
 %           L = number of solid phases
 %           P = number of solution species
 %
+%-----------Database file--------------------------------------------------
+%           pqo.database            Name of database file used in
+%                                   simulation
+%
 %-----------Derived bulk properties (N x 1)--------------------------------
 %           pqo.br_H2O              Mass of Water in Brine (g)
 %           pqo.ice_H2O             Mass of Water in Ice (g)
@@ -67,14 +71,6 @@ function pqo = read_pqo(fn)
 %
 %-----------Salts precipitating at the eutectic (L* x 1)-------------------
 %           pqo.eutectic.T                  Eutectic Temperature*
-%           pqo.eutectic.solid_species      Solid Species (Hydrates)
-%                                           Precipitating at the Eutectic
-%           pqo.eutectic.fw                 Weight Fraction Solid Salt
-%                                           (Hydrates) Precipitating at
-%                                           the Eutectic
-%           pqo.eutectic.rho_ss             Mean Density of Solid Salt
-%                                           (Hydrates) Precipitating at
-%                                           the Eutectic
 %
 % *For now, the eutectic temperature is defined as the temperature where
 % the mass of brine is less than 1e-3 kg
@@ -82,7 +78,7 @@ function pqo = read_pqo(fn)
 % Author:
 % Natalie Wolfenbarger
 % nswolfen@gmail.com
-%
+
 %% Elemental Properties (PHREEQC)
 
 % SOLUTION_MASTER_SPECIES
@@ -391,6 +387,9 @@ flag = 0;
 while ischar(tline)
     tline = fgetl(fid);
     if ~isempty(tline) & tline~=-1
+        if contains(tline,'Database file:')
+            pqo.database = extractAfter(tline,'database\');
+        end
         if contains(tline,'Reaction step')
             while ~contains(tline,'-Phase assemblage-')
                 if contains(tline,'ERROR')

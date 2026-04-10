@@ -23,8 +23,8 @@ function P = Pmelt(T)
 % Author:
 % Natalie Wolfenbarger
 % nswolfen@gmail.com
-%
-%%
+
+%% Pmelt
 Tmin = 251.165;
 Tmax = 273.16;
 

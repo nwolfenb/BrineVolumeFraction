@@ -24,7 +24,7 @@ function [P,T,F1,F2,F3,k_star,rho_ss] = F1F2F3_PHREEQC(fn)
 % Author:
 % Natalie Wolfenbarger
 % nswolfen@gmail.com
-%
+
 %% Read PHREEQC output file
 pqo = read_pqo(fn);
 

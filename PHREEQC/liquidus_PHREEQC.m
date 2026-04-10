@@ -17,7 +17,7 @@ function [P,T,Sb] = liquidus_PHREEQC(fn)
 % Author:
 % Natalie Wolfenbarger
 % nswolfen@gmail.com
-%
+
 %% Read PHREEQC output file
 pqo = read_pqo(fn);
 

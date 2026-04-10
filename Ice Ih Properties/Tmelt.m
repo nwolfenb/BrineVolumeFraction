@@ -23,8 +23,8 @@ function T = Tmelt(P)
 % Author:
 % Natalie Wolfenbarger
 % nswolfen@gmail.com
-%
-%%
+
+%% Tmelt
 Tmin = 251.165;
 Tmax = 273.16;
 Tmod = linspace(Tmin,Tmax,1e6);

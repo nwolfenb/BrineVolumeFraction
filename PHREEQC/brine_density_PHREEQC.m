@@ -17,9 +17,16 @@ function [P,T,rho_b] = brine_density_PHREEQC(fn)
 % Author:
 % Natalie Wolfenbarger
 % nswolfen@gmail.com
-%
+
 %% Read PHREEQC output file
 pqo = read_pqo(fn);
+
+%% Check if ColdChem Database
+if strcmp(pqo.database,'ColdChem.dat')
+    error(['ColdChem.dat was used to generate PHREEQC output file.',...
+        ' Because ColdChem does not contain molar volumes',...
+        ' for solution species, it is unable to provide brine density.'])
+end
 
 %% Check Pressure
 p = pqo.pressure; % bar

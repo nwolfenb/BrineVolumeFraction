@@ -26,7 +26,7 @@ function [P,Tmat,Smat,Vi_V, Vb_V, Vs_V] = volume_fraction_FREZCHEM(T,S,fn)
 % Author:
 % Natalie Wolfenbarger
 % nswolfen@gmail.com
-%
+
 %% Check Inputs
 if ~iscolumn(T)
     T = T'; % column vector

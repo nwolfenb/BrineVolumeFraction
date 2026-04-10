@@ -64,7 +64,7 @@ function FrOut = read_FrOut(fn)
 % Author:
 % Natalie Wolfenbarger
 % nswolfen@gmail.com
-%
+
 %% Detect FREZCHEM version from FREZCHEM output file
 % Find number of solid species
 flag = false;

@@ -23,8 +23,8 @@ function T = Tsat(P)
 % Author:
 % Natalie Wolfenbarger
 % nswolfen@gmail.com
-%
-%%
+
+%% Tsat
 Tmin = 273.15;
 Tmax = 623.15;
 Tmod = linspace(Tmin,Tmax,1e6);

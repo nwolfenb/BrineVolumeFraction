@@ -18,7 +18,7 @@ function [P,T,rho_b] = brine_density_FREZCHEM(fn)
 % Author:
 % Natalie Wolfenbarger
 % nswolfen@gmail.com
-%
+
 %% Read FREZCHEM output file
 FrOut = read_FrOut(fn);
 

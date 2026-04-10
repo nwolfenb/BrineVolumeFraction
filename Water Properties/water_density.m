@@ -24,7 +24,7 @@ function rho = water_density(T,P)
 % Author:
 % Natalie Wolfenbarger
 % nswolfen@gmail.com
-%
+
 %% Column Vectors
 flip = false;
 if ~iscolumn(T) && ~ismatrix(T)

@@ -19,7 +19,7 @@ function [P,T,Sb,rho_b] = brine_properties_FREZCHEM(fn)
 % Author:
 % Natalie Wolfenbarger
 % nswolfen@gmail.com
-%
+
 %% Read FREZCHEM output file
 FrOut = read_FrOut(fn);
 

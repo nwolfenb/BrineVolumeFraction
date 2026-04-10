@@ -23,8 +23,8 @@ function T = Tsub(P)
 % Author:
 % Natalie Wolfenbarger
 % nswolfen@gmail.com
-%
-%%
+
+%% Tsub
 Tmin = 50;
 Tmax = 273.16;
 Tmod = linspace(Tmin,Tmax,1e6);

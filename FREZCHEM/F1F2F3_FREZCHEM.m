@@ -23,7 +23,7 @@ function [P,T,F1,F2,F3,k_star,rho_ss] = F1F2F3_FREZCHEM(fn)
 % Author:
 % Natalie Wolfenbarger
 % nswolfen@gmail.com
-%
+
 %% Check if melt is stable for simulated pressure
 FrOut = read_FrOut(fn);
 p = FrOut.pressure; % bar

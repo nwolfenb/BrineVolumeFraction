@@ -68,7 +68,7 @@ function FrOut = read_FrOut151(fn)
 % Author:
 % Natalie Wolfenbarger
 % nswolfen@gmail.com
-%
+
 %% Elemental Properties (FREZCHEM)
 elemental = load('element_properties.mat');
 symb = elemental.Symbol;

@@ -23,8 +23,8 @@ function P = Psat(T)
 % Author:
 % Natalie Wolfenbarger
 % nswolfen@gmail.com
-%
-%%
+
+%% Psat
 Tmin = 273.15;
 Tmax = 623.15;
 

@@ -24,7 +24,7 @@ function rho = ice_density(T,P)
 % Author:
 % Natalie Wolfenbarger
 % nswolfen@gmail.com
-%
+
 %% Column Vectors
 flip = false;
 if ~iscolumn(T) && ~ismatrix(T)
@@ -93,8 +93,14 @@ T_ref = NaN(size(P));
 T_ref(P>Pt) = Tmelt(P(P>Pt));
 T_ref(P<Pt) = Tsub(P(P<Pt));
 T_ref(P==Pt) = Tt;
-rho(T>T_ref) = NaN;
-rho(isnan(T_ref)) = NaN;
+if isscalar(P)
+    if isnan(T_ref)
+        rho = NaN(size(T));
+    end
+    rho(T>T_ref) = NaN;
+else
+    rho(isnan(T_ref)) = NaN;
+end
 
 if any(isnan(rho))
     warning('Ice is not thermodyanmically stable for at least one input temperature and pressure.')

@@ -26,7 +26,7 @@ function [P,Tmat,Smat,Vi_V, Vb_V, Vs_V] = volume_fraction_PHREEQC(T,S,fn)
 % Author:
 % Natalie Wolfenbarger
 % nswolfen@gmail.com
-%
+
 %% Check Inputs
 if ~iscolumn(T)
     T = T'; % column vector
@@ -64,6 +64,14 @@ if P < pt
     % Use anhydrous salt mass to estimate average anhydrous salt density to
     % estimate volume fractions
 else
+
+    %% Check if ColdChem Database
+    if strcmp(pqo.database,'ColdChem.dat')
+        error(['ColdChem.dat was used to generate PHREEQC output file.',...
+            ' Because ColdChem does not contain molar volumes',...
+            ' for solution species, it is unable to provide brine density,'...
+            ' which is required for this framework.'])
+    end
     
     %% Extract Data from PHREEQC file
     ice_H2O = pqo.ice_H2O;
