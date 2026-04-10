@@ -8,7 +8,7 @@ function [P,T,F1,F2,F3,k_star,rho_ss] = F1F2F3_FREZCHEM(fn)
 % [P,T,F1,F2,F3,k_star,rho_ss] = F1F2F3_FREZCHEM(fn)
 %
 % Inputs:
-% fn    Filename of FREZCHEM output file, string
+% fn        Filename of FREZCHEM output file, string
 %
 % Outputs:
 % P         Pressure (Pa), scalar

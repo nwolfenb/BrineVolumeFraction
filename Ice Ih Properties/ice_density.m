@@ -103,7 +103,7 @@ else
 end
 
 if any(isnan(rho))
-    warning('Ice is not thermodyanmically stable for at least one input temperature and pressure.')
+    warning('Ice Ih is not thermodyanmically stable for at least one input temperature and pressure.')
 end
 
 end
