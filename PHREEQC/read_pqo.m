@@ -691,7 +691,7 @@ else
 end
 pqo.eutectic.T = pqo.T(ind_eut);
 
-disp(['Solids precipitating at T = ',num2str(pqo.T(ind_eut)),' K'])
+disp(['Solids precipitating at T = ',num2str(pqo.T(ind_eut)),' C'])
 ind = find(pqo.solid_moles(ind_eut,:)>0);
 solids_str = pqo.solids(1,ind);
 solids_disp = solids_str;
